@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   DrawerLayoutAndroid,
   SafeAreaView,
@@ -17,6 +17,8 @@ import Home from "./Home";
 import Breakfast from "./Breakfast";
 import Dessert from './Dessert';
 
+const API = "https://www.themealdb.com/api/json/v2"
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY
 
 export const Stack = createNativeStackNavigator();
 
@@ -42,9 +44,9 @@ export default function App() {
         <Drawer.Navigator screenOptions={{
           header: ({ navigation }) => <Header navigation={navigation}/>
         }}>
-          <Drawer.Screen name='Home' component={Home}/>
-          <Drawer.Screen name='Breakfast' component={Breakfast} />
-          <Drawer.Screen name='Dessert' component={Dessert} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Home' component={Home}/>
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Breakfast' component={Breakfast} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Dessert' component={Dessert} />
         </Drawer.Navigator>
       </NavigationContainer>
     </SafeAreaView>
