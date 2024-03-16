@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View, Button, TouchableNativeFeedback } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View, TouchableNativeFeedback } from "react-native";
 import * as WebBrowser from 'expo-web-browser'
 
 function Recipe({ route }) {
@@ -11,7 +11,9 @@ function Recipe({ route }) {
   const [source, setSource] = useState()
 
   useEffect(() => {
+
     setCurrentScreen("Recipe")
+
     for(let i = 0; i < 20; i++){
       const ingredientIndex = "strIngredient" + i
       const amountIndex = "strMeasure" + i
@@ -23,6 +25,7 @@ function Recipe({ route }) {
     }
 
     if(recipe.strSource) {setSource(recipe.strSource)}
+    
     return () => setCurrentScreen("Home"); // sets currentScreen variable to "Home" on unmount
   }, []);
 

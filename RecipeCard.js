@@ -48,8 +48,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   info: {
-    // flexDirection: "row",
-    // justifyContent: "space-between",
     marginHorizontal: 5,
   },
 });

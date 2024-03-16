@@ -1,15 +1,10 @@
 import 'react-native-gesture-handler';
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
-  DrawerLayoutAndroid,
   SafeAreaView,
   StyleSheet,
-  Text,
-  View,
-  Button,
   LogBox
 } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -30,9 +25,7 @@ export default function App() {
   const Drawer = createDrawerNavigator()
 
   const [endpoint, setEndpoint] = useState("/randomselection.php")
-  const [showSearch, setShowSearch] = useState(true)
   
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
@@ -42,7 +35,7 @@ export default function App() {
           <Drawer.Screen name='Home'>
             {({navigation}) => (
               <>
-                <SearchBar showSearch={showSearch} endpoint={endpoint} setEndpoint={setEndpoint}/>
+                <SearchBar endpoint={endpoint} setEndpoint={setEndpoint}/>
                 <Home API={API} API_KEY={API_KEY} endpoint={endpoint} setEndpoint={setEndpoint} navigation={navigation}/>
               </>
             )}

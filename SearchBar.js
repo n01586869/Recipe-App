@@ -10,7 +10,6 @@ function SearchBar({ endpoint, setEndpoint }) {
       placeholder="Search all categories"
       style={styles.text}
       onChangeText={(text) => {
-        console.log(endpoint)
         if(text){
           setEndpoint("/search.php?s=" + text)
         }
