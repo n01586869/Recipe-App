@@ -1,12 +1,10 @@
-import React from "react";
 import { Image, StyleSheet, Text, View, TouchableNativeFeedback} from "react-native";
 
 function RecipeCard(props) {
 
   return (
 			<TouchableNativeFeedback onPress={()=>{
-        props.setCurrentScreen("Recipe")
-        props.navigation.navigate("Recipe", { navigation: props.navigation , props: props})
+        props.navigation.navigate("Recipe", {data: props.data})
       }}>
 				<View style={styles.container}>
 					<Image src={props.img} style={styles.image} />
@@ -34,7 +32,9 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     aspectRatio: 1,
-		alignSelf: 'center'
+		alignSelf: 'center',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8
   },
   title: {
     fontSize: 24,

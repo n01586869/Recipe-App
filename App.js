@@ -17,30 +17,16 @@ import Home from "./Home";
 import Breakfast from "./Breakfast";
 import Dessert from './Dessert';
 
-const API = "https://www.themealdb.com/api/json/v2"
-const API_KEY = process.env.EXPO_PUBLIC_API_KEY
-
-export const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const Drawer = createDrawerNavigator()
 
-  // const drawerView = () => {
-  //   return (
-  //     <View>
-  //       <Button title="Btn1" />
-  //       <Button title="Btn2" />
-  //     </View>
-  //   );
-  // };
+  const API = "https://www.themealdb.com/api/json/v2"
+  const API_KEY = process.env.EXPO_PUBLIC_API_KEY
+  const Drawer = createDrawerNavigator()
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        {/* <Stack.Navigator>
-          <Stack.Screen name="Default" component={Default}/>
-          <Stack.Screen name="Category1" component={Category1} />
-        </Stack.Navigator> */}
         <Drawer.Navigator screenOptions={{
           header: ({ navigation }) => <Header navigation={navigation}/>
         }}>
