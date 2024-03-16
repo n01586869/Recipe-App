@@ -1,10 +1,10 @@
 import { View, FlatList } from "react-native";
 import RecipeCard from "./RecipeCard";
 
-const RecipeCardList = ({recipes, navigation}) => {
+const RecipeCardList = ({recipes, navigation, screen}) => {
 
   const renderRecipe = ({ item }) => (
-    <RecipeCard navigation={navigation} recipe={item} />
+    <RecipeCard navigation={navigation} recipe={item} screen={screen}/>
   );
 
   return (

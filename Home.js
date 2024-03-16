@@ -5,7 +5,7 @@ import RecipeCardList from "./RecipeCardList";
 
 const Home = ({ API, API_KEY, endpoint, navigation }) => {
 
-  const [currentScreen, setCurrentScreen] = useState("Home")
+  const [currentScreen, setCurrentScreen] = useState("")
   const [recipes, setRecipes] = useState([])
 
   const Stack = createNativeStackNavigator()
@@ -19,7 +19,7 @@ const Home = ({ API, API_KEY, endpoint, navigation }) => {
 
   const Screen = () => {
     return(
-      <RecipeCardList navigation={navigation} recipes={recipes}/>
+      <RecipeCardList navigation={navigation} recipes={recipes} screen={"Home Recipes"}/>
     )
   }
 
@@ -28,7 +28,7 @@ const Home = ({ API, API_KEY, endpoint, navigation }) => {
       headerShown: (currentScreen === "Recipe") ? true : false
     }}>
       <Stack.Screen name="Home Screen" component={Screen}/>
-      <Stack.Screen initialParams={{setCurrentScreen}} name="Recipe" component={Recipe}/>
+      <Stack.Screen initialParams={{setCurrentScreen}} name="Home Recipes" component={Recipe}/>
     </Stack.Navigator>
   )
 }

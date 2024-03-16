@@ -25,8 +25,8 @@ function Recipe({ route }) {
     }
 
     if(recipe.strSource) {setSource(recipe.strSource)}
-    
-    return () => setCurrentScreen("Home"); // sets currentScreen variable to "Home" on unmount
+
+    return () => setCurrentScreen(""); // sets currentScreen variable to "" on unmount
   }, []);
 
   return (

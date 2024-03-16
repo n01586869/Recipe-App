@@ -1,28 +1,38 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Recipe from "./Recipe";
+import RecipeCardList from "./RecipeCardList";
 
-import SearchBar from './SearchBar';
+const Desserts = ({ route, navigation }) => {
 
-function Dessert(props) {
-    const Stack = createNativeStackNavigator()
+  const { API, API_KEY } = route.params
 
-    const Screen = () => {
-      return(
-        <View>
-          <SearchBar />
-          <Text>Dessert</Text>
-      </View>
-      )
-    }
-  
+  const [currentScreen, setCurrentScreen] = useState("")
+  const [recipes, setRecipes] = useState([])
+
+  const Stack = createNativeStackNavigator()
+
+    useEffect(()=>{
+      fetch(API + "/" + API_KEY + "/filter.php?c=Dessert")
+      .then((res) => res.json())
+      .then((data) => setRecipes(data.meals))      
+      .catch((err) => console.log("Error: could not fetch recipes: ", err))
+  }, [])
+
+  const Screen = () => {
     return(
-      <Stack.Navigator screenOptions={{
-        headerShown: false
-      }}>
-        <Stack.Screen name="Screen" component={Screen}/>
-      </Stack.Navigator>
+      <RecipeCardList navigation={navigation} recipes={recipes} screen={"Dessert Recipes"}/>
     )
+  }
+
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown: (currentScreen === "Recipe") ? true : false
+    }}>
+      <Stack.Screen name="Dessert Screen" component={Screen}/>
+      <Stack.Screen initialParams={{setCurrentScreen}} name="Dessert Recipes" component={Recipe}/>
+    </Stack.Navigator>
+  )
 }
 
-export default Dessert;
+export default Desserts;

@@ -1,12 +1,19 @@
 import { Image, StyleSheet, Text, View, TouchableNativeFeedback} from "react-native";
 import * as WebBrowser from 'expo-web-browser'
+import { useEffect } from "react";
 
-function RecipeCard({ recipe, navigation }) {
+function RecipeCard({ recipe, navigation, screen }) {
+
+  // useEffect(()=>{
+  //   if(!recipe.strCategory){
+  //     fetch
+  //   }
+  // })
 
   return (
 			<TouchableNativeFeedback
         onPress={()=>{
-          navigation.navigate("Recipe", {recipe})
+          navigation.navigate(screen, {recipe})
         }}
         onLongPress={() => {
           {WebBrowser.openBrowserAsync(recipe.strYoutube)}
