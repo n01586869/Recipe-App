@@ -1,17 +1,23 @@
 import { Image, StyleSheet, Text, View, TouchableNativeFeedback} from "react-native";
+import * as WebBrowser from 'expo-web-browser'
 
-function RecipeCard(props) {
+function RecipeCard({ recipe, navigation }) {
 
   return (
-			<TouchableNativeFeedback onPress={()=>{
-        props.navigation.navigate("Recipe", {data: props.data})
-      }}>
+			<TouchableNativeFeedback
+        onPress={()=>{
+          navigation.navigate("Recipe", {recipe})
+        }}
+        onLongPress={() => {
+          {WebBrowser.openBrowserAsync(recipe.strYoutube)}
+        }}
+      >
 				<View style={styles.container}>
-					<Image src={props.img} style={styles.image} />
-					<Text style={styles.title} numberOfLines={4}>{props.title}</Text>
+					<Image src={recipe.strMealThumb + "/preview"} style={styles.image} />
+					<Text style={styles.title} numberOfLines={4}>{recipe.strMeal}</Text>
 					<View style={styles.info}>
-						<Text>Category: {props.category}</Text>
-						<Text>Cuisine: {props.cuisine}</Text>
+						<Text>Category: {recipe.strCategory}</Text>
+						<Text>Cuisine: {recipe.strArea}</Text>
 					</View>
 				</View>
 			</TouchableNativeFeedback>

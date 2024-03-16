@@ -1,18 +1,24 @@
 import { useRef } from "react";
 import { View, DrawerLayoutAndroid, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import SearchBar from "./SearchBar";
 
-function Header({ navigation }) {
+function Header({ navigation}) {
 
   return (
-    <View style={styles.header}>
-      <MaterialIcons
-        name="menu"
-        color={"black"}
-        size={28}
-        onPress={()=>navigation.openDrawer()}
-      />
-      <Text style={styles.text}>Header</Text>
+    <View>
+      <View style={styles.header}>
+        <MaterialIcons
+          name="menu"
+          color={"black"}
+          size={28}
+          onPress={()=>navigation.openDrawer()}
+        />
+        <Text style={styles.text}>Header</Text>
+      </View>
+      <View>
+        {/* {showSearch && <SearchBar navigation={navigation} endpoint={endpoint} setEndpoint={setEndpoint}/>} */}
+      </View>
     </View>
   );
 }

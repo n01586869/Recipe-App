@@ -4,41 +4,35 @@ import * as WebBrowser from 'expo-web-browser'
 
 function Recipe({ route }) {
 
-  const { setCurrentScreen, data } = route.params;
+  const { setCurrentScreen, recipe } = route.params;
 
   const [ingredients, setIngredients] = useState([])
   const [amounts, setAmounts] = useState([])
   const [source, setSource] = useState()
-
-  const title = data.strMeal;
-  const img = data.strMealThumb
-  const category = data.strCategory;
-  const cuisine = data.strArea;
-  const instructions = data.strInstructions
 
   useEffect(() => {
     setCurrentScreen("Recipe")
     for(let i = 0; i < 20; i++){
       const ingredientIndex = "strIngredient" + i
       const amountIndex = "strMeasure" + i
-      const ingredient = data[ingredientIndex]
+      const ingredient = recipe[ingredientIndex]
       if(ingredient){
         setIngredients((prev) => [...prev, ingredient])
-        setAmounts((prev) => [...prev, data[amountIndex]])
+        setAmounts((prev) => [...prev, recipe[amountIndex]])
       }
     }
 
-    if(data.strSource) {setSource(data.strSource)}
+    if(recipe.strSource) {setSource(recipe.strSource)}
     return () => setCurrentScreen("Home"); // sets currentScreen variable to "Home" on unmount
   }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image src={img} style={styles.image} />
-      <Text style={styles.title} numberOfLines={4}>{title}</Text>
+      <Image src={recipe.strMealThumb} style={styles.image} />
+      <Text style={styles.title} numberOfLines={4}>{recipe.strMeal}</Text>
       <View style={styles.info}>
-        <Text style={{fontSize: 16}}>Category: {category}</Text>
-        <Text style={{fontSize: 16}}>Cuisine: {cuisine}</Text>
+        <Text style={{fontSize: 16}}>Category: {recipe.strCategory}</Text>
+        <Text style={{fontSize: 16}}>Cuisine: {recipe.strArea}</Text>
       </View>
       <View style={styles.ingredientsAndAmount}>
         <View>
@@ -48,7 +42,7 @@ function Recipe({ route }) {
           {amounts && amounts.map((amt, index) => <Text style={{fontSize: 16, marginLeft: 10}} key={index}>{amt}</Text>)}
         </View>
       </View>
-      <Text style={styles.instructions}>{instructions}</Text>
+      <Text style={styles.instructions}>{recipe.strInstructions}</Text>
       {source && 
       <TouchableNativeFeedback onPress={() => {WebBrowser.openBrowserAsync(source)}}>
         <View style={styles.source}>

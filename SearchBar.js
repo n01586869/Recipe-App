@@ -2,11 +2,22 @@ import React from "react";
 import { View, StyleSheet, Text, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-function SearchBar(props) {
+function SearchBar({ endpoint, setEndpoint }) {
   return (
     <View style={styles.textbox}>
       <MaterialIcons name="search" color={"black"} size={20} />
-      <TextInput placeholder="Search all categories" style={styles.text} />
+      <TextInput
+      placeholder="Search all categories"
+      style={styles.text}
+      onChangeText={(text) => {
+        console.log(endpoint)
+        if(text){
+          setEndpoint("/search.php?s=" + text)
+        }
+        else {
+          setEndpoint("/randomselection.php")
+          }
+        }}/>
     </View>
   );
 }
