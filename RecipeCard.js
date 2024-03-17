@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View, TouchableNativeFeedback} from "react-native";
 import * as WebBrowser from 'expo-web-browser'
-import { useEffect } from "react";
+import { memo } from "react";
 
 function RecipeCard({ recipe, navigation, screen }) {
 
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecipeCard;
+export default memo(RecipeCard);

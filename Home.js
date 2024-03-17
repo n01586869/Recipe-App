@@ -11,13 +11,13 @@ const Home = ({ API, API_KEY, endpoint, navigation }) => {
   const Stack = createNativeStackNavigator()
 
     useEffect(()=>{
-      fetch(API + "/" + API_KEY + endpoint)
-      .then((res) => res.json())
-      .then((data) => setRecipes(data.meals))      
-      .catch((err) => console.log("Error: could not fetch recipes: ", err))
+      fetch(`${API}/${API_KEY}${endpoint}`)
+      .then(res => res.json())
+      .then(data => setRecipes(data.meals))      
+      .catch(err => console.log("Error: could not fetch recipes: ", err))
   }, [endpoint])
 
-  const Screen = () => {
+  const HomeScreen = () => {
     return(
       <RecipeCardList navigation={navigation} recipes={recipes} screen={"Home Recipes"}/>
     )
@@ -27,7 +27,7 @@ const Home = ({ API, API_KEY, endpoint, navigation }) => {
     <Stack.Navigator screenOptions={{
       headerShown: (currentScreen === "Recipe") ? true : false
     }}>
-      <Stack.Screen name="Home Screen" component={Screen}/>
+      <Stack.Screen name="Home Screen" component={HomeScreen}/>
       <Stack.Screen initialParams={{setCurrentScreen}} name="Home Recipes" component={Recipe}/>
     </Stack.Navigator>
   )

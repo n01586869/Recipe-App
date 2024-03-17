@@ -4,32 +4,44 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Recipe from "./Recipe";
 import RecipeCardList from "./RecipeCardList";
 
-const Home = ({ route, navigation }) => {
+const Breakfast = ({ route, navigation }) => {
 
   const { API, API_KEY } = route.params
 
   const [currentScreen, setCurrentScreen] = useState("")
   const [recipes, setRecipes] = useState([])
-
   const Stack = createNativeStackNavigator()
 
-    useEffect(()=>{
-
-      fetch(API + "/" + API_KEY + "/filter.php?c=Breakfast")
-      .then((res) => res.json())
-      .then((data) => data.meals.map((item) => {
-        const id = item.idMeal
-        const APIFull = API + "/" + API_KEY + "/lookup.php?i=" + id
-        fetch(APIFull)
-        .then((res) => res.json())
-        .then((data) => setRecipes((prev) => [...prev, data.meals[0]]))
-      }))
-      .catch((err) => console.log("Error: could not fetch recipes: ", err))
+  useEffect(() => {
+    fetch(`${API}/${API_KEY}/filter.php?c=Breakfast`)
+    .then(res => res.json())
+    .then(data => {
+      const mealInfo = data.meals.map(item => {
+        const APIFull = `${API}/${API_KEY}/lookup.php?i=${item.idMeal}`;
+        return (
+          fetch(APIFull)
+          .then(res => res.json())
+          .then(data => data.meals[0])
+        )
+      })
+      return Promise.all(mealInfo);
+    })
+    .then(recipes => {
+      setRecipes(recipes)
+    })
+    .catch(error => {
+      console.error('Error fetching recipes :', error)
+    });
   }, [])
 
   const Screen = () => {
     return( 
-      <RecipeCardList navigation={navigation} recipes={recipes} screen={"Breakfast Recipes"}/>     
+      <>
+        {recipes[0] ?
+        <RecipeCardList navigation={navigation} recipes={recipes} screen={"Breakfast Recipes"}/>
+        :
+        <View style={{alignSelf: 'center', marginTop: 30}}><Text>Loading Recipes...</Text></View>}
+      </>  
     )
   }
 
@@ -43,4 +55,4 @@ const Home = ({ route, navigation }) => {
   )
 }
 
-export default Home;
+export default Breakfast;
