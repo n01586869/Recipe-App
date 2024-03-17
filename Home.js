@@ -9,7 +9,6 @@ const Home = ({ API, API_KEY, endpoint, navigation }) => {
   const [recipes, setRecipes] = useState([])
 
   const Stack = createNativeStackNavigator()
-
     useEffect(()=>{
       fetch(`${API}/${API_KEY}${endpoint}`)
       .then(res => res.json())
