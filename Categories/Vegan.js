@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Recipe from "./Recipe";
-import RecipeCardList from "./RecipeCardList";
+import Recipe from "../Recipe";
+import RecipeCardList from "../RecipeCardList";
 
-const Dessert = ({ route, navigation }) => {
+const Vegan = ({ route, navigation }) => {
 
   const { API, API_KEY } = route.params // get api and api_key from route params
 
@@ -15,7 +15,7 @@ const Dessert = ({ route, navigation }) => {
   const Stack = createNativeStackNavigator()
 
   useEffect(() => {
-    fetch(`${API}/${API_KEY}/filter.php?c=Dessert`) // get list of desserts. this returns array of objects with only meal id and thumbnail
+    fetch(`${API}/${API_KEY}/filter.php?c=Vegan`) // get list of Vegan recipes. this returns array of objects with only meal id and thumbnail
     .then(res => res.json()) // parse json
     .then(data => {
       // since array of objects contains only meal id, need to do another fetch to get every meal by meal id
@@ -37,11 +37,11 @@ const Dessert = ({ route, navigation }) => {
     });
   }, [])
 
-  const DessertScreen = () => {
+  const VeganScreen = () => {
     return( 
       <>
         {recipes[0] ? // Loading screen while waiting for fetch
-        <RecipeCardList navigation={navigation} recipes={recipes} screen={"Dessert Recipes"}/>
+        <RecipeCardList navigation={navigation} recipes={recipes} screen={"Vegan Recipes"}/>
         :
         <View style={{alignSelf: 'center', marginTop: 30}}><Text>Loading Recipes...</Text></View>}
       </>  
@@ -52,10 +52,10 @@ const Dessert = ({ route, navigation }) => {
     <Stack.Navigator screenOptions={{
       headerShown: (currentScreen === "Recipe") ? true : false // hides Stack header if not in a Recipe
     }}>
-      <Stack.Screen name="Dessert Screen" component={DessertScreen}/>
-      <Stack.Screen initialParams={{setCurrentScreen}} name="Dessert Recipes" component={Recipe}/>
+      <Stack.Screen name="Vegan Screen" component={VeganScreen}/>
+      <Stack.Screen initialParams={{setCurrentScreen}} name="Vegan Recipes" component={Recipe}/>
     </Stack.Navigator>
   )
 }
 
-export default Dessert;
+export default Vegan;

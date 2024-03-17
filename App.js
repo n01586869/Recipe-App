@@ -4,10 +4,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from "@react-navigation/native";
 
 import Header from './Header';
-import Home from "./Home";
-import Breakfast from "./Breakfast";
-import Dessert from './Dessert';
 import SearchBar from './SearchBar';
+import Home from "./Home";
+import Breakfast from "./Categories/Breakfast";
+import Dessert from './Categories/Dessert';
+import Side from "./Categories/Sides";
+import Miscellaneous from "./Categories/Miscellaneous";
+import Vegan from "./Categories/Vegan";
 
 LogBox.ignoreLogs([ // ignoring an irrelevent warning
   'Non-serializable values were found in the navigation state',
@@ -45,6 +48,9 @@ export default function App() {
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Breakfast' component={Breakfast} />
           {/* Dessert screen */}
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Dessert' component={Dessert} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Side' component={Side} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Miscellaneous' component={Miscellaneous} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Vegan' component={Vegan} />
         </Drawer.Navigator>
       </NavigationContainer>
     </SafeAreaView>
