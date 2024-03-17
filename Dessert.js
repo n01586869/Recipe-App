@@ -16,10 +16,10 @@ const Dessert = ({ route, navigation }) => {
 
   useEffect(() => {
     fetch(`${API}/${API_KEY}/filter.php?c=Dessert`) // get list of desserts. this returns array of objects with only meal id and thumbnail
-    .then(res => res.json()) // parse
+    .then(res => res.json()) // parse json
     .then(data => {
       // since array of objects contains only meal id, need to do another fetch to get every meal by meal id
-      const mealInfo = data.meals.map(item => { // stores array of recipes in mealInfo buffer (eventually will use this in setRecipes)
+      const mealInfo = data.meals.map(item => { // stores array of promises for recipes in mealInfo buffer (eventually will use this in setRecipes)
         const APIFull = `${API}/${API_KEY}/lookup.php?i=${item.idMeal}`; // making full api string for readability
         return ( // returns the fetch promise which will eventually be evaluated to this specific recipe
           fetch(APIFull)
@@ -29,8 +29,8 @@ const Dessert = ({ route, navigation }) => {
       })
       return Promise.all(mealInfo); // returns the promise which will resolve once all the promises in mealInfo are resolved
     })
-    .then(recipes => {
-      setRecipes(recipes) // once all mealInfo promises are resolved, sets Recipes to mealInfo (now called recipes as per the parameter)
+    .then(mealInfo => {
+      setRecipes(mealInfo) // once all mealInfo promises are resolved, sets recipes to mealInfo
     })
     .catch(error => { // error handling
       console.error('Error fetching recipes :', error)

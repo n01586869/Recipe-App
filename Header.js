@@ -4,13 +4,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 function Header({ navigation }) {
   return (
     <View style={styles.header}>
-      <MaterialIcons
+      <MaterialIcons // hamburger icon
         name="menu"
         color={"black"}
         size={28}
         onPress={() => navigation.openDrawer()}
       />
-      <Text style={styles.text}>Header</Text>
+      <Text style={styles.text}>Recipe Radar</Text>
     </View>
   );
 }

@@ -22,7 +22,9 @@ export default function App() {
 
   // endpoint is used by SearchBar later to change the API endpoint. it's set to what Home will show by default
   const [endpoint, setEndpoint] = useState("/randomselection.php")
-  
+  // showSearch used by Home and Recipe screen to hide search while inside a Recipe and show it once exited the recipe
+  const [showSearch, setShowSearch] = useState(true)
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
@@ -34,8 +36,8 @@ export default function App() {
             {({navigation}) => (
               <>
                 {/* Using render function instead of component prop so SearchBar will only appear on Home screen */}
-                <SearchBar endpoint={endpoint} setEndpoint={setEndpoint}/>
-                <Home API={API} API_KEY={API_KEY} endpoint={endpoint} navigation={navigation}/>
+                {showSearch && <SearchBar setEndpoint={setEndpoint}/>}
+                <Home API={API} API_KEY={API_KEY} endpoint={endpoint} navigation={navigation} setShowSearch={setShowSearch}/>
               </>
             )}
           </Drawer.Screen>

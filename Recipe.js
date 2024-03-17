@@ -4,7 +4,7 @@ import * as WebBrowser from 'expo-web-browser'
 
 function Recipe({ route }) {
 
-  const { setCurrentScreen, recipe } = route.params;
+  const { setCurrentScreen, recipe, setShowSearch } = route.params; //destructure setCurrentScreen and recipe from params
 
   const [ingredients, setIngredients] = useState([])
   const [amounts, setAmounts] = useState([])
@@ -12,41 +12,56 @@ function Recipe({ route }) {
 
   useEffect(() => {
 
+    // sets currentScreen to "Recipe" so Stack header is shown
     setCurrentScreen("Recipe")
+    // if setShowSearch exists, will set it to false on mount
+    if(setShowSearch) setShowSearch(false)
 
-    for(let i = 0; i < 20; i++){
+    for(let i = 0; i < 20; i++){ // since API only allows for 20 ingredients/amounts at most, set i max to 20
       const ingredientIndex = "strIngredient" + i
       const amountIndex = "strMeasure" + i
-      const ingredient = recipe[ingredientIndex]
-      if(ingredient){
+      const ingredient = recipe[ingredientIndex] // dynamically access object field
+      if(ingredient){ // if ingredient exists, amount will also exist, so sets both at same time
         setIngredients((prev) => [...prev, ingredient])
         setAmounts((prev) => [...prev, recipe[amountIndex]])
       }
     }
 
-    if(recipe.strSource) {setSource(recipe.strSource)}
+    if(recipe.strSource) {setSource(recipe.strSource)} // if source exists, sets the source
 
-    return () => setCurrentScreen(""); // sets currentScreen variable to "" on unmount
+    return () => {
+      // sets currentScreen variable to "" on unmount, which will hide the header afterwards
+      setCurrentScreen("");
+      // if setShowSearch exists, will set it to true on unmount
+      if(setShowSearch) setShowSearch(true)
+     } 
   }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* image */}
       <Image src={recipe.strMealThumb} style={styles.image} />
+      {/* title */}
       <Text style={styles.title} numberOfLines={4}>{recipe.strMeal}</Text>
+      {/* container for category and cuisine */}
       <View style={styles.info}>
         <Text style={{fontSize: 16}}>Category: {recipe.strCategory}</Text>
         <Text style={{fontSize: 16}}>Cuisine: {recipe.strArea}</Text>
       </View>
+      {/* container for ingredients and amount */}
       <View style={styles.ingredientsAndAmount}>
         <View>
+          {/* mapping ingredients array */}
           {ingredients && ingredients.map((ing, index) => <Text style={{fontSize: 16}} key={index}>{ing}</Text>)}
         </View>
         <View>
+          {/* mapping amounts array */}
           {amounts && amounts.map((amt, index) => <Text style={{fontSize: 16, marginLeft: 10}} key={index}>{amt}</Text>)}
         </View>
       </View>
+      {/* recipe directions */}
       <Text style={styles.instructions}>{recipe.strInstructions}</Text>
-      {source && 
+      {source && // if source exists, render source button. on click, open browser and bring to source
       <TouchableNativeFeedback onPress={() => {WebBrowser.openBrowserAsync(source)}}>
         <View style={styles.source}>
           <Text>Source</Text>
@@ -62,7 +77,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "80%",
-    aspectRatio: 1,
+    aspectRatio: 1, // keeps image as square
 		alignSelf: 'center',
     borderRadius: 10,
     marginTop: 10
