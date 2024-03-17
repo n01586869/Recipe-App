@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SafeAreaView, StyleSheet, LogBox } from "react-native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from "@react-navigation/native";
+import { YellowBox } from "react-native";
 
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -11,6 +12,13 @@ import Dessert from './Categories/Dessert';
 import Side from "./Categories/Sides";
 import Miscellaneous from "./Categories/Miscellaneous";
 import Vegan from "./Categories/Vegan";
+import Chicken from "./Categories/Chicken"
+import Beef from "./Categories/Beef"
+import Pork from "./Categories/Pork"
+import Goat from "./Categories/Goat"
+import Seafood from "./Categories/Seafood"
+import Pasta from "./Categories/Pasta"
+import Vegetarian from "./Categories/Vegetarian";
 
 LogBox.ignoreLogs([ // ignoring an irrelevent warning
   'Non-serializable values were found in the navigation state',
@@ -44,12 +52,18 @@ export default function App() {
               </>
             )}
           </Drawer.Screen>
-          {/* Breakfast screen */}
+          {/* rest of the screens */}
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Breakfast' component={Breakfast} />
-          {/* Dessert screen */}
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Dessert' component={Dessert} />
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Side' component={Side} />
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Miscellaneous' component={Miscellaneous} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Chicken' component={Chicken} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Beef' component={Beef} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Pork' component={Pork} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Goat' component={Goat} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Seafood' component={Seafood} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Pasta' component={Pasta} />
+          <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Vegetarian' component={Vegetarian} />
           <Drawer.Screen initialParams={{ API: API, API_KEY: API_KEY}} name='Vegan' component={Vegan} />
         </Drawer.Navigator>
       </NavigationContainer>
