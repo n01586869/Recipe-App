@@ -10,13 +10,21 @@ const Home = ({ API, API_KEY, endpoint, navigation, setShowSearch }) => {
   // set state vars
   const [currentScreen, setCurrentScreen] = useState("") // this is used for toggling the header applied on a stack screen
   const [recipes, setRecipes] = useState([]) // this is data received from api
+  const [errorMsg, setErrorMsg] = useState("")
 
   const Stack = createNativeStackNavigator()
 
   useEffect(()=>{
       fetch(`${API}/${API_KEY}${endpoint}`) // dynamic endpoint for SearchBar functionality
       .then(res => res.json())
-      .then(data => setRecipes(data.meals))      
+      .then(data => {
+        if (data.meals) { // if search returns some recipes, data.meals won't be null
+          setRecipes(data.meals);
+        } else { // error handling incase user searches for something that doesn't exist
+          setRecipes([])
+          setErrorMsg("No recipes")
+        }
+      })
       .catch(err => console.log("Error: could not fetch recipes: ", err))
   }, [endpoint])
 
@@ -26,7 +34,7 @@ const Home = ({ API, API_KEY, endpoint, navigation, setShowSearch }) => {
         {recipes[0] ? // Loading screen while waiting for fetch
         <RecipeCardList navigation={navigation} recipes={recipes} screen={"Home Recipes"}/>
         :
-        <View style={{alignSelf: 'center', marginTop: 30}}><Text>Loading Recipes...</Text></View>}
+        <View style={{alignSelf: 'center', marginTop: 30}}><Text>{errorMsg ? errorMsg : "Loading Recipes..."}</Text></View>}
       </>  
     )
   }
