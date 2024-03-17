@@ -2,7 +2,6 @@ import { useState } from "react";
 import { SafeAreaView, StyleSheet, LogBox } from "react-native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from "@react-navigation/native";
-import { YellowBox } from "react-native";
 
 import Header from './Header';
 import SearchBar from './SearchBar';
