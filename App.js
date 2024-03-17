@@ -22,7 +22,7 @@ export default function App() {
 
   // endpoint is used by SearchBar later to change the API endpoint. it's set to what Home will show by default
   const [endpoint, setEndpoint] = useState("/randomselection.php")
-  // showSearch used by Home and Recipe screen to hide search while inside a Recipe and show it once exited the recipe
+  // showSearch used by Home and Recipe screen to hide SearchBar while inside a Recipe and show it once exited the recipe
   const [showSearch, setShowSearch] = useState(true)
 
   return (
